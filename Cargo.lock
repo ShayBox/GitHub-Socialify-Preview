@@ -271,17 +271,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "acbf1af155f9b9ef647e42cdc158db4b64a1b61f743629225fde6f3e0be2a7c7"
 
 [[package]]
-name = "config"
-version = "0.1.2"
-source = "git+https://github.com/ShayBox/Config.git#dac7fed1904e7e8bf848f5c64e59eb5b05f08977"
-dependencies = [
- "derive",
- "dirs",
- "serde_json",
- "thiserror",
-]
-
-[[package]]
 name = "constant_time_eq"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -394,9 +383,22 @@ dependencies = [
 ]
 
 [[package]]
-name = "derive"
-version = "0.1.2"
-source = "git+https://github.com/ShayBox/Config.git#dac7fed1904e7e8bf848f5c64e59eb5b05f08977"
+name = "derive-config"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9fdacd4bc9832ddff886d4d3728ec32bb9e6d2a041e0d0de6ee92bbdddde5c43"
+dependencies = [
+ "derive-macros",
+ "dirs",
+ "serde_json",
+ "thiserror",
+]
+
+[[package]]
+name = "derive-macros"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "775be1d85fbc8409f878c7d5505828705cf6f554226f60c7821df89ee252a499"
 dependencies = [
  "quote",
  "syn 2.0.48",
@@ -628,11 +630,11 @@ checksum = "4271d37baee1b8c7e4b708028c57d816cf9d2434acb33a549475f78c181f6253"
 
 [[package]]
 name = "github-socialify-preview"
-version = "0.0.0"
+version = "1.0.0"
 dependencies = [
  "anyhow",
  "clap",
- "config",
+ "derive-config",
  "headless_chrome",
  "reqwest",
  "serde",

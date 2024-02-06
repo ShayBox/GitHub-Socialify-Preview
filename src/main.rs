@@ -4,7 +4,7 @@ use std::{fs::File, time::Duration};
 
 use anyhow::Result;
 use clap::{Parser, ValueEnum};
-use config::{json::Value, ConfigFile};
+use derive_config::{json::Value, ConfigFile};
 use headless_chrome::{browser::default_executable, Browser, LaunchOptions};
 use serde::{Deserialize, Serialize};
 use strum::Display;
@@ -171,7 +171,7 @@ fn main() -> Result<()> {
     // Attempt to load previously saved cookies
     let mut cookies = Cookies::load().unwrap_or_default();
     let tab = browser.new_tab()?;
-    if let Ok(cookies) = config::json::from_value(cookies.0) {
+    if let Ok(cookies) = derive_config::json::from_value(cookies.0) {
         tab.set_cookies(cookies)?;
     }
 
@@ -193,7 +193,7 @@ fn main() -> Result<()> {
 
     // Attempt to save cookies for future use
     if let Ok(new_cookies) = tab.get_cookies() {
-        cookies.0 = config::json::to_value(new_cookies)?;
+        cookies.0 = derive_config::json::to_value(new_cookies)?;
         cookies.save()?;
     }
 
