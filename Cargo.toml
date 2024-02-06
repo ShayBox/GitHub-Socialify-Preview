@@ -1,0 +1,40 @@
+[package]
+name = "github-socialify-preview"
+version = "0.0.0"
+authors = ["Shayne Hartford <shaybox@shaybox.com>"]
+edition = "2021"
+description = "Upload GitHub repository Socialify preview images"
+readme = "README.md"
+repository = "https://github.com/ShayBox/GitHub-Socialify-Preview"
+license = "MIT"
+keywords = ["github", "socialify", "image"]
+categories = ["command-line-utilities"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+config = { git = "https://github.com/ShayBox/Config.git", features = ["json"] }
+headless_chrome = { version = "1", features = ["fetch"] }
+reqwest = { version = "0.11", default-features = false, features = ["blocking"] }
+serde = { version = "1", features = ["derive"] }
+strum = { version = "0.26", features = ["derive"] }
+
+[features]
+default = ["rustls-tls"]
+native-tls = ["reqwest/native-tls"]
+rustls-tls = ["reqwest/rustls-tls"]
+
+# https://github.com/johnthagen/min-sized-rust
+[profile.release]
+strip = true      # Automatically strip symbols from the binary.
+opt-level = "z"   # Optimize for size.
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[lints.clippy]
+pedantic = "warn"
+nursery = "warn"
+cargo = "warn"
